@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Life - Conway's Game of Life</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #0a0a0f 0%, #0d0d1a 50%, #0a0a12 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: #e0e0ff;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            font-weight: 300;
+            font-size: 2.5rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #00d4ff, #ff00d4, #00d4ff);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+            margin-bottom: 10px;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .subtitle {
+            color: #6a6a8a;
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .canvas-wrapper {
+            position: relative;
+            width: 806px;
+            height: 606px;
+            border-radius: 12px;
+            padding: 3px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.3), rgba(255, 0, 212, 0.3));
+            box-shadow:
+                0 0 40px rgba(0, 212, 255, 0.15),
+                0 0 80px rgba(255, 0, 212, 0.1),
+                inset 0 0 60px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+            border-radius: 10px;
+            background: radial-gradient(ellipse at center, #0d0d18 0%, #050508 100%);
+            cursor: crosshair;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 20px;
+            background: rgba(20, 20, 35, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 8px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            white-space: nowrap;
+        }
+
+        .control-group:last-child {
+            border-right: none;
+        }
+
+        button {
+            padding: 8px 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(255, 0, 212, 0.15));
+            color: #c0c0e0;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            white-space: nowrap;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.3), rgba(255, 0, 212, 0.3));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button.primary {
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            color: #000;
+            font-weight: 600;
+        }
+
+        button.primary:hover {
+            box-shadow: 0 5px 25px rgba(0, 212, 255, 0.5);
+        }
+
+        button.danger {
+            background: linear-gradient(135deg, rgba(255, 50, 100, 0.2), rgba(255, 0, 100, 0.2));
+            border-color: rgba(255, 50, 100, 0.4);
+        }
+
+        button.danger:hover {
+            background: linear-gradient(135deg, rgba(255, 50, 100, 0.4), rgba(255, 0, 100, 0.4));
+            box-shadow: 0 5px 20px rgba(255, 50, 100, 0.3);
+        }
+
+        button.icon-btn {
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        button.icon-btn svg {
+            display: block;
+        }
+
+
+
+        select {
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: rgba(10, 10, 20, 0.8);
+            color: #c0c0e0;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            font-size: 0.8rem;
+            cursor: pointer;
+            outline: none;
+        }
+
+        select:hover, select:focus {
+            border-color: rgba(0, 212, 255, 0.6);
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        label {
+            font-size: 0.8rem;
+            color: #8888aa;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 80px;
+            height: 6px;
+            border-radius: 3px;
+            background: linear-gradient(90deg, rgba(0, 212, 255, 0.3), rgba(255, 0, 212, 0.3));
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00d4ff, #ff00d4);
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00d4ff, #ff00d4);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .stats {
+            display: flex;
+            gap: 30px;
+            font-size: 0.85rem;
+            color: #8888aa;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-value {
+            color: #00d4ff;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .info {
+            max-width: 800px;
+            text-align: center;
+            color: #666688;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin-top: 10px;
+        }
+
+        .legend {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            margin-top: 10px;
+            font-size: 0.75rem;
+            color: #555577;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        .dot-newborn { background: #ffffff; color: rgba(255, 255, 255, 0.5); }
+        .dot-young { background: #00f0ff; color: rgba(0, 240, 255, 0.5); }
+        .dot-mature { background: #ff00d4; color: rgba(255, 0, 212, 0.5); }
+        .dot-old { background: #ff3366; color: rgba(255, 51, 102, 0.5); }
+
+        /* Visual Haptics Styles */
+        .haptics-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 12px 16px;
+            background: rgba(255, 50, 100, 0.08);
+            border: 1px solid rgba(255, 50, 100, 0.3);
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .haptics-warning {
+            font-size: 0.75rem;
+            color: #ff6688;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .haptics-warning::before {
+            content: "⚠️";
+        }
+
+        .haptics-toggle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .haptics-toggle input[type="checkbox"] {
+            display: none;
+        }
+
+        .toggle-switch {
+            width: 44px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            position: relative;
+            transition: background 0.3s ease;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .haptics-toggle input[type="checkbox"]:checked + .toggle-switch {
+            background: linear-gradient(135deg, #00d4ff, #ff00d4);
+        }
+
+        .haptics-toggle input[type="checkbox"]:checked + .toggle-switch::after {
+            transform: translateX(20px);
+        }
+
+        .haptics-label {
+            font-size: 0.85rem;
+            color: #c0c0e0;
+            font-weight: 500;
+        }
+
+        .frenzy-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 8px;
+        }
+
+        .frenzy-control label {
+            font-size: 0.75rem;
+            color: #8888aa;
+        }
+
+        .frenzy-control input[type="range"] {
+            width: 100px;
+        }
+
+        .frenzy-control span {
+            font-size: 0.75rem;
+            color: #00d4ff;
+            min-width: 35px;
+        }
+
+        .canvas-wrapper.haptics-active {
+            animation: borderPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes borderPulse {
+            0%, 100% { box-shadow: 0 0 40px rgba(0, 212, 255, 0.15), 0 0 80px rgba(255, 0, 212, 0.1), inset 0 0 60px rgba(0, 0, 0, 0.5); }
+            50% { box-shadow: 0 0 60px rgba(0, 212, 255, 0.25), 0 0 100px rgba(255, 0, 212, 0.15), inset 0 0 60px rgba(0, 0, 0, 0.5); }
+        }
+
+        .visualizer-bar {
+            position: absolute;
+            bottom: 13px;
+            left: 13px;
+            right: 13px;
+            height: 4px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 2px;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .canvas-wrapper.haptics-active .visualizer-bar {
+            opacity: 1;
+        }
+
+        .visualizer-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00d4ff, #ff00d4);
+            width: 0%;
+            transition: width 0.15s ease-out;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <h1>Neon Life</h1>
+    <div class="subtitle">Conway's Game of Life</div>
+
+    <div class="main-container">
+        <div class="canvas-wrapper" id="canvasWrapper">
+            <canvas id="lifeCanvas" width="800" height="600"></canvas>
+            <div class="visualizer-bar">
+                <div class="visualizer-fill" id="visualizerFill"></div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <button id="playPauseBtn" class="primary icon-btn">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                        <polygon points="8,5 19,12 8,19" id="playIcon"/>
+                        <rect x="6" y="5" width="4" height="14" id="pauseBar1" style="display:none"/>
+                        <rect x="14" y="5" width="4" height="14" id="pauseBar2" style="display:none"/>
+                    </svg>
+                </button>
+                <button id="stepBtn" class="icon-btn">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                        <polygon points="6,5 17,12 6,19"/>
+                        <rect x="18" y="5" width="3" height="14"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="control-group">
+                <button id="clearBtn" class="danger">Clear</button>
+                <button id="randomBtn">Random</button>
+            </div>
+
+            <div class="control-group">
+                <select id="presetSelect">
+                    <option value="" disabled selected>Load Preset...</option>
+                    <option value="glider">Glider</option>
+                    <option value="gosper">Gosper Glider Gun</option>
+                    <option value="pulsar">Pulsar</option>
+                    <option value="diehard">Diehard</option>
+                    <option value="acorn">Acorn</option>
+                    <option value="spaceship">Lightweight Spaceship</option>
+                </select>
+            </div>
+
+            <div class="control-group slider-container">
+                <label for="speedSlider">Speed</label>
+                <input type="range" id="speedSlider" min="1" max="60" value="15">
+                <span id="speedValue">15</span>
+            </div>
+
+            <div class="control-group slider-container">
+                <label for="cellSizeSlider">Cell Size</label>
+                <input type="range" id="cellSizeSlider" min="4" max="20" value="8">
+                <span id="cellSizeValue">8</span>
+            </div>
+        </div>
+
+        <div class="haptics-container">
+            <div class="haptics-warning">Contains rhythmic visual effects</div>
+            <label class="haptics-toggle">
+                <input type="checkbox" id="hapticsToggle">
+                <span class="toggle-switch"></span>
+                <span class="haptics-label">Visual Haptics (Emotional Arc)</span>
+            </label>
+            <div class="frenzy-control" id="frenzyControl" style="display: none;">
+                <label for="frenzySlider">Frenzy Intensity</label>
+                <input type="range" id="frenzySlider" min="0" max="100" value="50">
+                <span id="frenzyValue">50%</span>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <span>Generation:</span>
+                <span id="genCount" class="stat-value">0</span>
+            </div>
+            <div class="stat">
+                <span>Population:</span>
+                <span id="popCount" class="stat-value">0</span>
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-dot dot-newborn"></div>
+                <span>Newborn</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot dot-young"></div>
+                <span>Young</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot dot-mature"></div>
+                <span>Mature</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot dot-old"></div>
+                <span>Old</span>
+            </div>
+        </div>
+
+        <div class="info">
+            Click or drag on the grid to paint cells. Press Play to start the simulation.
+            Each cell follows simple rules based on its 8 neighbors, creating emergent complexity.
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('lifeCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let cellSize = 8;
+        let cols = Math.floor(canvas.width / cellSize);
+        let rows = Math.floor(canvas.height / cellSize);
+
+        let grid = [];
+        let nextGrid = [];  // Double-buffered
+        let ageGrid = [];   // Track cell age
+        let nextAgeGrid = []; // Double-buffered
+        let trailGrid = []; // Track recent deaths for trails
+        let nextTrailGrid = []; // Double-buffered
+        let generation = 0;
+        let isPlaying = false;
+        let animationId = null;
+        let speed = 15;
+        let lastFrameTime = 0;
+
+        // Visual Haptics state
+        let visualHapticsEnabled = false;
+        let hapticsIntensity = 0; // 0-1 decaying value
+        const HAPTICS_DECAY = 0.6; // Aggressive decay for transient spikes
+        const HAPTICS_SCALE = 0.4; // Higher scale for dramatic events
+
+        // Emotional Arc State Machine
+        const ArcPhase = { DORMANT: 0, BIRTH: 1, LIFE: 2, EXTINCTION: 3, STAGNATION: 4 };
+        let emotionalArc = {
+            phase: ArcPhase.DORMANT,
+            progress: 0,        // Animation progress (0-1)
+            birthSize: 0,       // Initial population for birth detection
+            lastPopulation: 0,
+            lastActivity: 0,
+            frenzyIntensity: 0.5,
+            lastFlashTime: 0,
+            stagnationCounter: 0  // Track generations with no change
+        };
+        const MAX_FLASH_RATE = 333; // Minimum 333ms between flashes (3Hz cap)
+        const STAGNATION_THRESHOLD = 15; // Generations with zero activity = stagnation
+        const STAGNATION_LOW_ACTIVITY_THRESHOLD = 60; // Generations with low activity
+        const LOW_ACTIVITY_MAX = 3; // Max births+deaths to count as "low activity"
+
+        // Helper: Reset emotional arc to dormant state
+        function resetEmotionalArc() {
+            emotionalArc.phase = ArcPhase.DORMANT;
+            emotionalArc.progress = 0;
+            emotionalArc.birthSize = 0;
+            emotionalArc.lastPopulation = 0;
+            emotionalArc.lastActivity = 0;
+            emotionalArc.stagnationCounter = 0;
+            emotionalArc.lowActivityCounter = 0;
+        }
+
+        // Helper: Set play button icon state
+        function setPlayButton(playing) {
+            const playIcon = document.getElementById('playIcon');
+            const pauseBar1 = document.getElementById('pauseBar1');
+            const pauseBar2 = document.getElementById('pauseBar2');
+            playIcon.style.display = playing ? 'none' : 'block';
+            pauseBar1.style.display = playing ? 'block' : 'none';
+            pauseBar2.style.display = playing ? 'block' : 'none';
+        }
+
+        // Color lookup table for cell ages
+        const colorTable = [
+            null, // index 0 unused (dead cells)
+            { r: 255, g: 255, b: 255, a: 1 },    // age 1 - newborn white
+            { r: 0, g: 240, b: 255, a: 0.9 },    // age 2-5 - young cyan
+            { r: 0, g: 240, b: 255, a: 0.9 },
+            { r: 0, g: 240, b: 255, a: 0.9 },
+            { r: 0, g: 240, b: 255, a: 0.9 },
+            { r: 255, g: 0, b: 212, a: 0.85 },   // age 6-15 - mature magenta
+            { r: 255, g: 0, b: 212, a: 0.85 },
+            { r: 255, g: 0, b: 212, a: 0.85 },
+            { r: 255, g: 0, b: 212, a: 0.85 },
+            { r: 255, g: 0, b: 212, a: 0.85 },
+            { r: 255, g: 0, b: 212, a: 0.85 },
+            { r: 255, g: 0, b: 212, a: 0.85 },
+            { r: 255, g: 0, b: 212, a: 0.85 },
+            { r: 255, g: 0, b: 212, a: 0.85 },
+            { r: 255, g: 0, b: 212, a: 0.85 },
+            { r: 255, g: 51, b: 102, a: 0.8 }    // age 16+ - old red
+        ];
+
+        function getCellColor(age) {
+            return age < colorTable.length ? colorTable[age] : colorTable[colorTable.length - 1];
+        }
+
+        // Initialize grids
+        function initGrid() {
+            grid = Array(rows).fill(null).map(() => Array(cols).fill(0));
+            nextGrid = Array(rows).fill(null).map(() => Array(cols).fill(0));
+            ageGrid = Array(rows).fill(null).map(() => Array(cols).fill(0));
+            nextAgeGrid = Array(rows).fill(null).map(() => Array(cols).fill(0));
+            trailGrid = Array(rows).fill(null).map(() => Array(cols).fill(0));
+            nextTrailGrid = Array(rows).fill(null).map(() => Array(cols).fill(0));
+            generation = 0;
+            hapticsIntensity = 0;
+            resetEmotionalArc();
+            if (document.getElementById('visualizerFill')) {
+                document.getElementById('visualizerFill').style.width = '0%';
+            }
+            updateStats();
+        }
+
+        // Count neighbors
+        function countNeighbors(row, col) {
+            let count = 0;
+            for (let i = -1; i <= 1; i++) {
+                for (let j = -1; j <= 1; j++) {
+                    if (i === 0 && j === 0) continue;
+                    const newRow = (row + i + rows) % rows;
+                    const newCol = (col + j + cols) % cols;
+                    count += grid[newRow][newCol];
+                }
+            }
+            return count;
+        }
+
+        // Next generation (double-buffered, no allocations)
+        function nextGeneration() {
+            let births = 0;
+            let deaths = 0;
+            let currentPopulation = 0;
+
+            for (let i = 0; i < rows; i++) {
+                for (let j = 0; j < cols; j++) {
+                    const neighbors = countNeighbors(i, j);
+
+                    // Decay trails
+                    if (trailGrid[i][j] > 0) {
+                        nextTrailGrid[i][j] = trailGrid[i][j] - 0.15;
+                    } else {
+                        nextTrailGrid[i][j] = 0;
+                    }
+
+                    if (grid[i][j] === 1) {
+                        // Cell is alive
+                        if (neighbors < 2 || neighbors > 3) {
+                            // Dies - leave trail
+                            nextTrailGrid[i][j] = 1;
+                            nextGrid[i][j] = 0;
+                            nextAgeGrid[i][j] = 0;
+                            deaths++;
+                        } else {
+                            // Survives - age increases
+                            nextGrid[i][j] = 1;
+                            nextAgeGrid[i][j] = ageGrid[i][j] + 1;
+                            currentPopulation++;
+                        }
+                    } else {
+                        // Cell is dead
+                        if (neighbors === 3) {
+                            // Born!
+                            nextGrid[i][j] = 1;
+                            nextAgeGrid[i][j] = 1;
+                            births++;
+                            currentPopulation++;
+                        } else {
+                            nextGrid[i][j] = 0;
+                            nextAgeGrid[i][j] = 0;
+                        }
+                    }
+                }
+            }
+
+            // Swap buffers
+            [grid, nextGrid] = [nextGrid, grid];
+            [ageGrid, nextAgeGrid] = [nextAgeGrid, ageGrid];
+            [trailGrid, nextTrailGrid] = [nextTrailGrid, trailGrid];
+
+            // Update visual haptics intensity based on DRAMATIC EVENTS (transients)
+            if (visualHapticsEnabled) {
+                const currentActivity = births + deaths;
+                const activityDelta = Math.abs(currentActivity - emotionalArc.lastActivity);
+                const popDelta = Math.abs(currentPopulation - emotionalArc.lastPopulation);
+
+                // FIRST BIRTH: Warm welcoming bloom (only for small seeds, not presets)
+                if (emotionalArc.phase === ArcPhase.DORMANT && currentPopulation > 0) {
+                    if (currentPopulation <= 5) {
+                        emotionalArc.phase = ArcPhase.BIRTH;
+                        emotionalArc.progress = 1.0;
+                        emotionalArc.birthSize = currentPopulation;
+                    } else {
+                        // Preset loaded - skip birth bloom
+                        emotionalArc.phase = ArcPhase.LIFE;
+                    }
+                }
+
+                // EXTINCTION: Trigger mourning sequence (total death)
+                if (emotionalArc.phase === ArcPhase.LIFE && currentPopulation === 0 && emotionalArc.lastPopulation > 0) {
+                    console.log('EXTINCTION TRIGGERED!');
+                    emotionalArc.phase = ArcPhase.EXTINCTION;
+                    emotionalArc.progress = 0;
+                    isPlaying = false;
+                    setPlayButton(false);
+                }
+
+                // STAGNATION: Trigger on absolute zero activity OR sustained very low activity
+                const noActivity = currentActivity === 0;
+                const lowActivity = currentActivity > 0 && currentActivity <= LOW_ACTIVITY_MAX;
+
+                if (emotionalArc.phase === ArcPhase.LIFE && noActivity) {
+                    emotionalArc.stagnationCounter++;
+                    if (emotionalArc.stagnationCounter >= STAGNATION_THRESHOLD) {
+                        console.log('STAGNATION: Zero activity');
+                        emotionalArc.phase = ArcPhase.STAGNATION;
+                        emotionalArc.progress = 0;
+                        isPlaying = false;
+                        setPlayButton(false);
+                    }
+                } else {
+                    emotionalArc.stagnationCounter = 0;
+                }
+
+                // Second condition: sustained low activity (oscillators winding down)
+                if (emotionalArc.phase === ArcPhase.LIFE && lowActivity) {
+                    emotionalArc.lowActivityCounter++;
+                    if (emotionalArc.lowActivityCounter >= STAGNATION_LOW_ACTIVITY_THRESHOLD) {
+                        console.log('STAGNATION: Low activity sustained');
+                        emotionalArc.phase = ArcPhase.STAGNATION;
+                        emotionalArc.progress = 0;
+                        isPlaying = false;
+                        setPlayButton(false);
+                    }
+                } else {
+                    emotionalArc.lowActivityCounter = 0;
+                }
+
+                // Transition from BIRTH to LIFE after bloom fades
+                if (emotionalArc.phase === ArcPhase.BIRTH && emotionalArc.progress < 0.01) {
+                    emotionalArc.phase = ArcPhase.LIFE;
+                }
+
+                // FRENZY: Rapid flashing during high activity (capped at 3Hz)
+                if (emotionalArc.phase !== ArcPhase.DORMANT && currentPopulation > 0) {
+                    const dramaticEvent = activityDelta + (popDelta * 2);
+                    const newIntensity = Math.min(dramaticEvent * HAPTICS_SCALE, 1.0);
+                    if (newIntensity > hapticsIntensity * 0.5) {
+                        hapticsIntensity = newIntensity;
+                    }
+                }
+            }
+            emotionalArc.lastPopulation = currentPopulation;
+            emotionalArc.lastActivity = births + deaths;
+
+            generation++;
+            updateStats();
+        }
+
+        // Draw the grid
+        function draw() {
+            // Clear completely (no semi-transparent trail effect - we use trailGrid instead)
+            ctx.fillStyle = '#050508';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw trails
+            for (let i = 0; i < rows; i++) {
+                for (let j = 0; j < cols; j++) {
+                    if (trailGrid[i][j] > 0) {
+                        const alpha = trailGrid[i][j] * 0.2;
+                        ctx.fillStyle = `rgba(255, 50, 100, ${alpha})`;
+                        ctx.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);
+                    }
+                }
+            }
+
+            // Set up glow effect once for all cells
+            ctx.shadowBlur = cellSize * 0.8;
+
+            // Draw live cells
+            for (let i = 0; i < rows; i++) {
+                for (let j = 0; j < cols; j++) {
+                    if (grid[i][j] === 1) {
+                        const color = getCellColor(ageGrid[i][j]);
+                        const x = j * cellSize;
+                        const y = i * cellSize;
+                        const padding = 1;
+
+                        // Set shadow color based on cell age
+                        ctx.shadowColor = `rgba(${color.r}, ${color.g}, ${color.b}, 0.6)`;
+
+                        // Core cell
+                        ctx.fillStyle = `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`;
+                        ctx.fillRect(x + padding, y + padding, cellSize - padding*2, cellSize - padding*2);
+                    }
+                }
+            }
+
+            // Reset shadow for grid lines
+            ctx.shadowBlur = 0;
+            ctx.shadowColor = 'transparent';
+
+            // Draw grid lines (only every 5 cells to reduce overhead)
+            ctx.strokeStyle = 'rgba(0, 212, 255, 0.04)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            for (let i = 0; i <= cols; i += 5) {
+                ctx.moveTo(i * cellSize, 0);
+                ctx.lineTo(i * cellSize, canvas.height);
+            }
+            for (let i = 0; i <= rows; i += 5) {
+                ctx.moveTo(0, i * cellSize);
+                ctx.lineTo(canvas.width, i * cellSize);
+            }
+            ctx.stroke();
+
+            // Draw subtle vignette
+            const vignette = ctx.createRadialGradient(
+                canvas.width/2, canvas.height/2, 0,
+                canvas.width/2, canvas.height/2, canvas.width/2
+            );
+            vignette.addColorStop(0, 'rgba(0,0,0,0)');
+            vignette.addColorStop(0.7, 'rgba(0,0,0,0)');
+            vignette.addColorStop(1, 'rgba(0,0,0,0.4)');
+            ctx.fillStyle = vignette;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // === EMOTIONAL ARC VISUAL HAPTICS ===
+            if (visualHapticsEnabled) {
+                const now = performance.now();
+
+                // 1. FIRST BIRTH: Warm gold radial bloom
+                if (emotionalArc.phase === ArcPhase.BIRTH && emotionalArc.progress > 0.01) {
+                    const birthProgress = 1 - emotionalArc.progress;
+                    const bloomSize = canvas.width * 0.8 * birthProgress;
+                    const alpha = emotionalArc.progress * 0.4;
+
+                    const birthGradient = ctx.createRadialGradient(
+                        canvas.width/2, canvas.height/2, 0,
+                        canvas.width/2, canvas.height/2, bloomSize
+                    );
+                    birthGradient.addColorStop(0, `rgba(255, 200, 100, ${alpha})`);
+                    birthGradient.addColorStop(0.5, `rgba(255, 150, 50, ${alpha * 0.5})`);
+                    birthGradient.addColorStop(1, 'rgba(255, 100, 0, 0)');
+
+                    ctx.fillStyle = birthGradient;
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                    // Slow decay of birth animation
+                    emotionalArc.progress *= 0.95;
+                }
+
+                // 2. FRENZY: Rapid flashing during high activity (capped at 3Hz)
+                const inActivePhase = emotionalArc.phase === ArcPhase.LIFE || 
+                                     (emotionalArc.phase === ArcPhase.BIRTH && emotionalArc.progress < 0.5);
+                const notEndingPhase = emotionalArc.phase !== ArcPhase.EXTINCTION && 
+                                      emotionalArc.phase !== ArcPhase.STAGNATION;
+                if (hapticsIntensity > 0.3 && notEndingPhase && inActivePhase) {
+                    const timeSinceLastFlash = now - emotionalArc.lastFlashTime;
+                    if (timeSinceLastFlash >= MAX_FLASH_RATE) {
+                        const flashAlpha = hapticsIntensity * emotionalArc.frenzyIntensity * 0.15;
+                        ctx.fillStyle = `rgba(255, 50, 100, ${flashAlpha})`;
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                        emotionalArc.lastFlashTime = now;
+                    }
+                }
+
+                // 3. EXTINCTION: Slow fade to black with violet shift
+                if (emotionalArc.phase === ArcPhase.EXTINCTION) {
+                    emotionalArc.progress += 0.008;
+
+                    if (emotionalArc.progress >= 1) {
+                        // Fade complete, reset everything
+                        resetEmotionalArc();
+                        initGrid();
+                    } else {
+                        // Gradual darkening
+                        const darkness = emotionalArc.progress * 0.95;
+                        ctx.fillStyle = `rgba(0, 0, 0, ${darkness})`;
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                        // Violet tint on remaining trails
+                        const violetAlpha = (1 - emotionalArc.progress) * 0.3;
+                        ctx.fillStyle = `rgba(100, 50, 150, ${violetAlpha})`;
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                        // Subtle flash at the moment of extinction
+                        if (emotionalArc.progress < 0.1) {
+                            const flashAlpha = (1 - emotionalArc.progress * 10) * 0.5;
+                            ctx.fillStyle = `rgba(255, 255, 255, ${flashAlpha})`;
+                            ctx.fillRect(0, 0, canvas.width, canvas.height);
+                        }
+                    }
+                }
+
+                // 4. STAGNATION: Golden glow fade (different emotional tone - acceptance, not mourning)
+                if (emotionalArc.phase === ArcPhase.STAGNATION) {
+                    emotionalArc.progress += 0.005; // Slower fade
+
+                    if (emotionalArc.progress >= 1) {
+                        // Fade complete
+                        resetEmotionalArc();
+                        // Don't clear grid - let the still lifes remain as a monument
+                    } else {
+                        // Warm golden/amber overlay - peaceful acceptance
+                        const warmth = emotionalArc.progress * 0.4;
+                        ctx.fillStyle = `rgba(255, 180, 60, ${warmth})`;
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                        // Desaturate living cells gradually (shift toward sepia)
+                        const desatAlpha = emotionalArc.progress * 0.5;
+                        ctx.fillStyle = `rgba(139, 125, 107, ${desatAlpha})`;
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    }
+                }
+
+                // Base haptics overlay (subtle bloom)
+                const activePhaseForOverlay = emotionalArc.phase !== ArcPhase.EXTINCTION && 
+                                              emotionalArc.phase !== ArcPhase.STAGNATION;
+                if (hapticsIntensity > 0.01 && activePhaseForOverlay) {
+                    const bloomAlpha = hapticsIntensity * 0.1;
+                    ctx.fillStyle = `rgba(0, 212, 255, ${bloomAlpha})`;
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                }
+            }
+        }
+
+        // Animation loop
+        function animate(timestamp) {
+            const frameInterval = 1000 / speed;
+
+            // Decay haptics intensity smoothly (but not during extinction/stagnation)
+            const activePhase = emotionalArc.phase !== ArcPhase.EXTINCTION && 
+                               emotionalArc.phase !== ArcPhase.STAGNATION;
+            if (visualHapticsEnabled && hapticsIntensity > 0 && activePhase) {
+                hapticsIntensity *= HAPTICS_DECAY;
+                if (hapticsIntensity < 0.001) hapticsIntensity = 0;
+                document.getElementById('visualizerFill').style.width = `${hapticsIntensity * 100}%`;
+            }
+
+            // Advance simulation if playing (but not during stagnation)
+            if (timestamp - lastFrameTime >= frameInterval) {
+                if (isPlaying && emotionalArc.phase !== ArcPhase.STAGNATION) {
+                    nextGeneration();
+                }
+                draw();
+                lastFrameTime = timestamp;
+            }
+
+            animationId = requestAnimationFrame(animate);
+        }
+
+        // Update statistics
+        function updateStats() {
+            let population = 0;
+            for (let i = 0; i < rows; i++) {
+                for (let j = 0; j < cols; j++) {
+                    population += grid[i][j];
+                }
+            }
+            document.getElementById('genCount').textContent = generation;
+            document.getElementById('popCount').textContent = population;
+
+            // Auto-pause and reset if everything dies (only if haptics disabled)
+            if (!visualHapticsEnabled && isPlaying && population === 0 && generation > 0) {
+                isPlaying = false;
+                generation = 0;
+                setPlayButton(false);
+            }
+        }
+
+        // Mouse interaction
+        let isDrawing = false;
+        let drawMode = 1; // 1 = draw, 0 = erase
+
+        function getCellFromMouse(e) {
+            const rect = canvas.getBoundingClientRect();
+            // Account for CSS scaling: canvas display size vs actual pixel size
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            const x = (e.clientX - rect.left) * scaleX;
+            const y = (e.clientY - rect.top) * scaleY;
+            return {
+                col: Math.floor(x / cellSize),
+                row: Math.floor(y / cellSize)
+            };
+        }
+
+        canvas.addEventListener('mousedown', (e) => {
+            isDrawing = true;
+            const { row, col } = getCellFromMouse(e);
+            if (row >= 0 && row < rows && col >= 0 && col < cols) {
+                drawMode = grid[row][col] === 0 ? 1 : 0;
+                grid[row][col] = drawMode;
+                ageGrid[row][col] = drawMode;
+                trailGrid[row][col] = 0;
+                nextGrid[row][col] = 0;
+                nextAgeGrid[row][col] = 0;
+                nextTrailGrid[row][col] = 0;
+                draw();
+                updateStats();
+            }
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (isDrawing) {
+                const { row, col } = getCellFromMouse(e);
+                if (row >= 0 && row < rows && col >= 0 && col < cols) {
+                    grid[row][col] = drawMode;
+                    ageGrid[row][col] = drawMode;
+                    trailGrid[row][col] = 0;
+                    nextGrid[row][col] = 0;
+                    nextAgeGrid[row][col] = 0;
+                    nextTrailGrid[row][col] = 0;
+                    draw();
+                    updateStats();
+                }
+            }
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            isDrawing = false;
+        });
+
+        canvas.addEventListener('mouseleave', () => {
+            isDrawing = false;
+        });
+
+        // Controls
+        document.getElementById('playPauseBtn').addEventListener('click', () => {
+            isPlaying = !isPlaying;
+            setPlayButton(isPlaying);
+        });
+
+        document.getElementById('stepBtn').addEventListener('click', () => {
+            nextGeneration();
+            draw();
+        });
+
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            initGrid();
+            draw();
+            document.getElementById('presetSelect').selectedIndex = 0;
+            if (isPlaying) {
+                isPlaying = false;
+                setPlayButton(false);
+            }
+        });
+
+        document.getElementById('randomBtn').addEventListener('click', () => {
+            for (let i = 0; i < rows; i++) {
+                for (let j = 0; j < cols; j++) {
+                    grid[i][j] = Math.random() > 0.85 ? 1 : 0;
+                    ageGrid[i][j] = grid[i][j];
+                    trailGrid[i][j] = 0;
+                    nextGrid[i][j] = 0;
+                    nextAgeGrid[i][j] = 0;
+                    nextTrailGrid[i][j] = 0;
+                }
+            }
+            generation = 0;
+            resetEmotionalArc();
+            draw();
+            updateStats();
+            document.getElementById('presetSelect').selectedIndex = 0;
+        });
+
+        document.getElementById('speedSlider').addEventListener('input', (e) => {
+            speed = parseInt(e.target.value);
+            document.getElementById('speedValue').textContent = speed;
+        });
+
+        document.getElementById('cellSizeSlider').addEventListener('input', (e) => {
+            cellSize = parseInt(e.target.value);
+            document.getElementById('cellSizeValue').textContent = cellSize;
+            updateGridDimensions();
+        });
+
+        // Presets
+        function centerPattern(pattern) {
+            const startRow = Math.floor((rows - pattern.length) / 2);
+            const startCol = Math.floor((cols - pattern[0].length) / 2);
+
+            for (let i = 0; i < pattern.length; i++) {
+                for (let j = 0; j < pattern[i].length; j++) {
+                    if (startRow + i >= 0 && startRow + i < rows &&
+                        startCol + j >= 0 && startCol + j < cols) {
+                        grid[startRow + i][startCol + j] = pattern[i][j];
+                        ageGrid[startRow + i][startCol + j] = pattern[i][j];
+                    }
+                }
+            }
+            // Clear next-gen buffers to avoid stale data
+            for (let i = 0; i < rows; i++) {
+                for (let j = 0; j < cols; j++) {
+                    nextGrid[i][j] = 0;
+                    nextAgeGrid[i][j] = 0;
+                    nextTrailGrid[i][j] = 0;
+                }
+            }
+        }
+
+        const presets = {
+            glider: [
+                [0, 1, 0],
+                [0, 0, 1],
+                [1, 1, 1]
+            ],
+            gosper: [
+                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+                [0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+                [1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                [1,1,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            ],
+            pulsar: [
+                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,1,1,1,0,0,0,1,1,1,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,1,0,0,0,0,1,0,1,0,0,0,0,1,0],
+                [0,1,0,0,0,0,1,0,1,0,0,0,0,1,0],
+                [0,1,0,0,0,0,1,0,1,0,0,0,0,1,0],
+                [0,0,0,1,1,1,0,0,0,1,1,1,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,1,1,1,0,0,0,1,1,1,0,0,0],
+                [0,1,0,0,0,0,1,0,1,0,0,0,0,1,0],
+                [0,1,0,0,0,0,1,0,1,0,0,0,0,1,0],
+                [0,1,0,0,0,0,1,0,1,0,0,0,0,1,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,1,1,1,0,0,0,1,1,1,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            ],
+            diehard: [
+                [0,0,0,0,0,0,1,0],
+                [1,1,0,0,0,0,0,0],
+                [0,1,0,0,0,1,1,1]
+            ],
+            acorn: [
+                [0,1,0,0,0,0,0],
+                [0,0,0,1,0,0,0],
+                [1,1,0,0,1,1,1]
+            ],
+            spaceship: [
+                [1,0,0,1,0],
+                [0,0,0,0,1],
+                [1,0,0,0,1],
+                [0,1,1,1,1]
+            ]
+        };
+
+        document.getElementById('presetSelect').addEventListener('change', (e) => {
+            const preset = e.target.value;
+            if (preset && presets[preset]) {
+                initGrid();
+                centerPattern(presets[preset]);
+                resetEmotionalArc();
+                draw();
+                updateStats();
+            }
+        });
+
+        // Update grid dimensions when cell size changes (canvas stays fixed size)
+        function updateGridDimensions() {
+            const maxCanvasWidth = 800;
+            const maxCanvasHeight = 600;
+
+            cols = Math.floor(maxCanvasWidth / cellSize);
+            rows = Math.floor(maxCanvasHeight / cellSize);
+            canvas.width = cols * cellSize;
+            canvas.height = rows * cellSize;
+
+            initGrid();
+            resetEmotionalArc();
+            draw();
+        }
+
+        // Visual Haptics toggle
+        document.getElementById('hapticsToggle').addEventListener('change', (e) => {
+            visualHapticsEnabled = e.target.checked;
+            const canvasWrapper = document.getElementById('canvasWrapper');
+            const frenzyControl = document.getElementById('frenzyControl');
+
+            if (visualHapticsEnabled) {
+                canvasWrapper.classList.add('haptics-active');
+                frenzyControl.style.display = 'flex';
+                resetEmotionalArc();
+            } else {
+                canvasWrapper.classList.remove('haptics-active');
+                frenzyControl.style.display = 'none';
+                hapticsIntensity = 0;
+                document.getElementById('visualizerFill').style.width = '0%';
+            }
+        });
+
+        // Frenzy intensity slider
+        document.getElementById('frenzySlider').addEventListener('input', (e) => {
+            emotionalArc.frenzyIntensity = parseInt(e.target.value) / 100;
+            document.getElementById('frenzyValue').textContent = `${e.target.value}%`;
+        });
+
+        // Start
+        updateGridDimensions();
+        requestAnimationFrame(animate);
+    </script>
+</body>
+</html>
