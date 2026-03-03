@@ -16,6 +16,10 @@
 | **OS** | macOS (Darwin 25.4.0, arm64) |
 | **Shell** | Fish + Starship (NOT bash/zsh) |
 | **Terminal** | Ghostty |
+| **Browser** | Brave (Chromium-based) |
+| **Package Manager** | pnpm |
+| **Node.js** | v25.6.1 |
+| **Homebrew** | Yes (topgrade for updates) |
 
 ---
 
@@ -97,6 +101,10 @@
 | `~/.openclaw/workspace/` | OpenClaw MD files (AGENTS.md, SOUL.md, CONDUCT.md, USER.md, etc.) |
 | `~/Documents/03_Read/Basilica of Simulacra/` | Knowledge base |
 | `~/Documents/03_Read/Basilica of Simulacra/08_System/` | System context files |
+
+## CLI Tools (Homebrew)
+
+`fish`, `starship`, `neovim`, `bat`, `eza`, `fd`, `ripgrep`, `fzf`, `direnv`, `yt-dlp`, `gh`, `git`, `topgrade`, `memo`, `imsg`, `himalaya`, `obsidian-cli`, `gemini-cli`
 
 ## Key Files (Root)
 
