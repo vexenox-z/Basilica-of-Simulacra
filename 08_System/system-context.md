@@ -10,6 +10,8 @@
 |----------|-------|
 | **Model** | MacBook Pro (MDE34LL/A) |
 | **Chip** | Apple M5 (10 cores: 4P + 6E) |
+| **GPU** | Integrated (M5 GPU) |
+| **GPU Framework** | Metal (Apple's framework, NOT Vulkan) |
 | **Memory** | 24 GB |
 | **Storage** | 1 TB SSD (~500 GB available) |
 | **Serial** | K69PVKQJ9R |
@@ -101,6 +103,14 @@
 | `~/.openclaw/workspace/` | OpenClaw MD files (AGENTS.md, SOUL.md, CONDUCT.md, USER.md, etc.) |
 | `~/Documents/03_Read/Basilica of Simulacra/` | Knowledge base |
 | `~/Documents/03_Read/Basilica of Simulacra/08_System/` | System context files |
+
+## Virtualization
+
+| Tool | Purpose |
+|------|---------|
+| **UTM** | Virtual machines on macOS (ARM/x86 emulation) |
+
+*Note: Linux distro ISOs stored in 06_Labs/VMs — do not expose distro names or configurations publicly.*
 
 ## CLI Tools (Homebrew)
 
