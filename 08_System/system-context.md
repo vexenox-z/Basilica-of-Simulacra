@@ -9,8 +9,13 @@
 | Property | Value |
 |----------|-------|
 | **Model** | MacBook Pro (MDE34LL/A) |
-| **Chip** | Apple M5 (10 cores: 4P + 6E) |
-| **GPU** | Integrated (M5 GPU) |
+| **Chip** | Apple M5 (10-core CPU: 4P + 6E) |
+| **Architecture** | ARM (Apple Silicon, 3nm TSMC) |
+| **CPU Performance** | 15% faster multithreaded vs M4 |
+| **GPU** | 10-core GPU with Neural Accelerator |
+| **AI Compute** | 4x vs M4, 6x vs M1 |
+| **Memory Bandwidth** | 153.6 GB/s unified memory |
+| **Max Memory** | 32 GB LPDDR5X (installed: 24 GB) |
 | **GPU Framework** | Metal (Apple's framework, NOT Vulkan) |
 | **Memory** | 24 GB |
 | **Storage** | 1 TB SSD (~500 GB available) |
