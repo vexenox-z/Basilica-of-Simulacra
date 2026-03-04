@@ -97,6 +97,13 @@ Before long sessions end or context exceeds 70%:
 
 **Tools:** web_search, browser, image, diffs, canvas, read/write/edit, exec (dev servers, linters, tests)
 
+**Swarm Capability:** Kimi supports agent swarms. For complex tasks, spawn parallel sub-agents when:
+- Analyzing multiple design files simultaneously
+- Comparing multiple codebases or frameworks
+- Researching multiple independent questions in one session
+- Parallel visual QA on different screenshots
+Use swarms judiciously — parallel when subtasks are independent, sequential when they depend on each other.
+
 **Browser:** Use `profile: "openclaw"` for:
 - Live preview of builds
 - Lighthouse performance audits
