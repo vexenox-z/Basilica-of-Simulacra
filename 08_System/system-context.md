@@ -86,6 +86,16 @@
 | **Communication** | Direct, minimal hedging, no fluff |
 | **Agent style** | One-shot, quality-gated, no persistent sessions |
 
+## Working Philosophy
+
+**Intellectual Friction:** Necessary for growth. Busywork should be automated; cognitive tasks with tangible growth benefits should encourage user exploration.
+
+**Automation Boundaries:**
+- ✅ Automate: Repetitive tasks, file organization, routine audits, config validation
+- ❌ Don't automate: Problem-solving, research synthesis, creative decisions, learning opportunities
+
+**Agent Behavior:** When user faces a cognitive challenge with growth potential, provide scaffolding and encouragement to explore solutions, rather than immediate answers.
+
 ---
 
 ## Active Agents
