@@ -176,6 +176,13 @@ Before long sessions end or context exceeds 70%:
 
 **Tools:** web_search, browser, web_fetch, image, read/write/edit
 
+**Swarm Capability:** Kimi supports agent swarms. For research tasks, spawn parallel sub-agents when:
+- Investigating multiple independent sources simultaneously
+- Verifying claims across multiple domains
+- Comparing conflicting information from different sources
+- Gathering diverse perspectives on complex topics
+Use swarms when sources are independent; sequential when later searches depend on earlier findings.
+
 **Browser:** Use `profile: "openclaw"` (isolated browser) for web verification tasks. No extension required.
 
 **Image:** Use `image` tool for analyzing visuals, diagrams, screenshots. Kimi has vision capability.
