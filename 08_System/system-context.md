@@ -57,6 +57,26 @@
 
 ---
 
+## Nodes (Device Control)
+
+**Status:** Available for pairing
+
+**Capabilities:**
+- Camera capture (`camera_snap`)
+- Screen recording (`screen_record`)
+- Notifications (`notify`)
+- Location (`location_get`)
+- Remote command execution (`run`)
+
+**Workflow:**
+1. `nodes status` — check available devices
+2. `nodes describe <node>` — verify capabilities
+3. Execute command with explicit user consent
+
+**Privacy:** Media commands require node app to be foregrounded. Always request consent before camera/screen capture.
+
+---
+
 ## User Preferences
 
 | Preference | Value |
