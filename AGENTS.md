@@ -29,6 +29,45 @@ Mention the agent name in your message to me (Archibald Vane). I will spawn the 
 
 ---
 
+## Memory Flush Protocol
+
+**Critical:** Context windows are finite. When full, older context gets compacted or lost. **Don't lose important information.**
+
+**Monitor:** Run `session_status` periodically. Watch for:
+```
+📚 Context: 36k/200k (18%) · 🧹 Compactions: 0
+```
+
+### Threshold-Based Actions
+
+| Context % | Action |
+|-----------|--------|
+| **< 50%** | Normal operation. Write decisions as they happen. |
+| **50-70%** | Increased vigilance. Write key points after substantial exchanges. |
+| **70-85%** | Active flushing. Write everything important to daily notes NOW. |
+| **> 85%** | Emergency flush. Stop and write full context summary before responding. |
+| **After compaction** | Immediately note what context may have been lost. Check continuity. |
+
+**The Rule:** Act on thresholds, not vibes. If it's important, write it down NOW.
+
+### What to Flush
+
+- **Decisions made** — what was decided and why
+- **Action items** — who's doing what
+- **Open threads** — anything unfinished → `notes/areas/open-loops.md`
+- **Working changes** — if files were discussed, modify them NOW
+
+### All Agents Must
+
+Before long sessions end or context exceeds 70%:
+- [ ] Key decisions documented?
+- [ ] Action items captured?
+- [ ] New learnings written to appropriate files?
+- [ ] Open loops noted for follow-up?
+- [ ] Could future-me continue this from notes alone?
+
+---
+
 ## Vane-Architect
 
 **Role:** Senior Frontend Engineer & UX Designer (15 years production experience)
