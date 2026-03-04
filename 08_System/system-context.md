@@ -38,11 +38,22 @@
 | `read/write/edit` | File operations |
 | `browser` | Web automation, screenshots |
 | `web_fetch` | Lightweight URL content extraction |
-| `web_search` | Internet search via Ollama |
+| `web_search` | Internet search via Brave Search API |
+| `image` | Image analysis (Kimi vision) |
 | `memory_search/get` | Memory file retrieval |
 | `sessions_spawn` | Spawn subagents (one-shot) |
 | `ollama_web_search` | Web search API |
 | `nodes` | Paired device control |
+
+## API Limits
+
+| Service | Tier | Limit |
+|---------|------|-------|
+| **Brave Search** | Free | 1 req/sec, 2000/month |
+| **Moonshot (Kimi)** | Default | Standard rate limits |
+| **Ollama (MiniMax/GLM)** | Cloud free | Standard rate limits |
+
+**Note:** If approaching Brave limit (1500+ searches), batch queries or use `browser` + `web_fetch` for verification instead.
 
 ---
 
