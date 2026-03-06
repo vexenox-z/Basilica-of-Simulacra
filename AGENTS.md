@@ -66,6 +66,8 @@ Before long sessions end or context exceeds 70%:
 - [ ] Open loops noted for follow-up?
 - [ ] Could future-me continue this from notes alone?
 
+For **non-trivial** mistakes or pattern discoveries (cost + recurrence and/or scope), log an entry to `.learnings/LEARNINGS.md` or `.learnings/ERRORS.md` using the self-improving-agent format.
+
 ---
 
 ## Vane-Architect
