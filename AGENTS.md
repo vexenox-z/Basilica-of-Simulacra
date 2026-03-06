@@ -27,6 +27,8 @@ Mention the agent name in your message to me (Archibald Vane). I will spawn the 
 
 **Pre-task:** Read ~/Documents/03_Read/Basilica of Simulacra/08_System/system-context.md for machine context before executing tasks.
 
+**Pre-task worldview check:** For tasks involving Xena’s preferences, values, or learning, consult USER.md (and SESSIONS.md when present) to infer engagement level before classifying the task (Mundane/Growth/Values/Delegated/Meta) per CONDUCT.md.
+
 ---
 
 ## Memory Flush Protocol
