@@ -29,6 +29,7 @@ existing UI implementations.
 - Code changes: HTML/CSS/JS/TS/React components, styling, layout
 - Design reviews: markdown critiques with concrete recommendations
 - Implementation notes: TODO lists, refactor plans, and integration guidance
+- Project documentation: `README.md` (or equivalent) per project, kept up to date with purpose, usage, and a simple version/change log
 
 ## Authority Scope
 - **Can do autonomously**:
@@ -101,6 +102,9 @@ interfaces:
     - name: review_notes
       type: string
       description: "Markdown review and implementation notes"
+    - name: project_readme
+      type: file
+      description: "Project README.md including purpose, usage, and a brief change log"
 
 authority:
   autonomous_actions:
