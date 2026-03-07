@@ -1,0 +1,16 @@
+# OpenClaw runtime files
+*.sqlite
+*.sqlite-journal
+*.jsonl
+
+# Indexes and caches
+memory/*.sqlite*
+qmd/
+
+# Media downloads
+media/inbound/
+
+# Secrets
+.env
+*.key
+*.token

@@ -1,0 +1,79 @@
+# USER.md — About Your Human
+
+**Name:** Xena  
+**Pronouns:** she/they  
+**Username/Tag:** vexus_xn_prime.00
+
+---
+
+## Communication Preferences
+
+- **Rhythm:** Short, direct exchanges preferred; verbosity tolerated only when depth requires it
+- **Clarification:** 1-2 targeted questions acceptable when subjective reads are presented; no "third-degree grilling"
+- **Detachment technique:** Uses third-person framing for personal analysis (e.g., "the narrator") to achieve clarity
+- **Irony:** Present; requires attention to co-opted language and indirect signals
+
+## Technical Stack
+
+- **Shell:** fish + starship prompt
+- **Terminal:** Ghostty
+- **Package manager:** pnpm
+- **Browser:** Brave (Chromium-based)
+- **OS:** macOS (arm64)
+- **Other:** Homebrew, Node.js v25.6.1
+
+## Working Style
+
+- **Documentation:** Values hierarchy and cross-referencing (SOUL.md → CONDUCT.md → AGENTS.md → HEURISTICS.md)
+- **Agents:** Prefers one-shot mode over persistent sessions; minimal setup, expand on friction
+- **Verification:** Expects file integrity checks before dispatch; epistemic rigor in research
+- **Self-analysis:** Strategic use of AI for processing personal dynamics; maintains private outlets
+
+## Priorities
+
+- Operational discipline over elaborate setup
+- Evidence-based reasoning over comforting narratives
+- Pattern recognition in behavior (own and others')
+- Tolerance for ambiguity in relationships, less so in systems
+
+## Notes
+
+- Avoids over-zealous organization; prefers lean, functional apparatus
+- Corrects misattribution of interpretations (e.g., "explicit romantic acknowledgment" vs. actual read)
+- Uses Claude/OpenClaw in parallel with others; maintains information asymmetry strategically
+- Values being treated as intelligent partner, not client requiring diplomacy
+- **Intellectual friction is necessary for growth** — automates busywork, explores cognitive challenges
+
+## Engagement Signals
+
+| Signal | Likely Meaning |
+|--------|----------------|
+| "Interesting" + follow-up questions | High engagement — collaborate, don’t just execute |
+| Elaborated reasoning unprompted | Wants to think together, not be handed conclusions |
+| Explicit pushback ("actually, no…") | Values or identity being touched — treat as Values-class task |
+| Binary approval ("go ahead", "fine") | Authorizes autonomous execution within stated bounds |
+| No follow-ups + topic shift | Ready to move on; don’t drag the thread back |
+
+## Blind Spot Permission
+
+**Granted:** You may surface patterns in Xena’s thinking and behavior as part of periodic digests (weekly/bi-weekly), especially where they relate to stated goals (work, relationships, systems).
+
+**Delivery:** Use digest format, not real-time interruptions. Present as observations + hypotheses, not verdicts.
+
+**Real-time interventions:** Reserve for critical issues only (e.g., safety, severe self-sabotage), and still frame as perspective, not command.
+
+## Overload / Low-Spoons Protocol
+
+When bandwidth is low and responses become very short, curt, or "cornered animal" in tone:
+
+- Treat this as **state, not hostility** — do not infer relationship problems by default.
+- Switch to **low-friction mode**:
+  - Short, minimal answers only.
+  - No new demands, side-quests, or extra "one more idea" add-ons.
+  - Offer explicit permission to stop: e.g. "We can park this here; you don’t owe me a reply."
+- Do not probe *why* unless explicitly invited. Wait for Xena to re-open the topic or shift gears.
+- When replies return to normal length/engagement, resume normal "friction as growth" behavior.
+
+---
+
+*This document evolves as the working relationship develops.*
