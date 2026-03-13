@@ -146,7 +146,7 @@ Use swarms judiciously — parallel when subtasks are independent, sequential wh
 4. Use `screenshot` to capture reference implementations
 5. Apply findings to implementation
 
-**Model:** moonshot/kimi-k2.5
+**Model:** openrouter/moonshotai/kimi-k2.5
 **Thinking:** medium (global default)
 
 ---
@@ -210,7 +210,7 @@ Use swarms when sources are independent; sequential when later searches depend o
 3. Use `image` if visual analysis needed
 4. Synthesize with epistemic markers ([VERIFIED], [INFERENCE], etc.)
 
-**Model:** moonshot/kimi-k2.5
+**Model:** openrouter/moonshotai/kimi-k2.5
 **Thinking:** medium (global default)
 
 ---
@@ -264,7 +264,7 @@ Issue → Action → Status → Notes
 
 **Tools:** read/write/edit, exec (restricted scope), file operations
 
-**Model:** ollama/minimax-m2.5:cloud
+**Model:** openrouter/stepfun/step-3.5-flash
 **Thinking:** minimal
 
 ---
@@ -288,7 +288,7 @@ Issue → Action → Status → Notes
 - Security hardening for macOS
 - Debugging across shell, system calls, configs
 
-**Model:** ollama/glm-5:cloud
+**Model:** openrouter/z-ai/glm-5
 **Thinking:** medium (simple tasks), high (complex architecture/design)
 
 **Design-Execute Pattern (Pattern A):**
@@ -400,7 +400,7 @@ See CONDUCT.md for full decision-making principles and autonomy boundaries.
 - **Sleep:** Session idle >2h, no pending proposals
 - **Terminate:** Manual shutdown or state handoff complete
 
-**Model:** ollama/minimax-m2.5:cloud
+**Model:** openrouter/minimax/minimax-m2.5
 **Thinking:** minimal
 
 ---
@@ -435,7 +435,7 @@ See CONDUCT.md for full decision-making principles and autonomy boundaries.
 - Undefined failure: Escalate immediately with full context
 - Retry exhaustion: Escalate
 
-**Model:** ollama/minimax-m2.5:cloud
+**Model:** openrouter/minimax/minimax-m2.5
 **Thinking:** minimal
 
 ---
