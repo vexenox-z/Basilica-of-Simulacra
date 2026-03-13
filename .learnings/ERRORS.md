@@ -4,27 +4,36 @@ Captures command failures, exceptions, and unexpected behaviors.
 
 ---
 
-## [ERR-20250309-001] placeholder
+## [ERR-20250313-001] openclaw-gateway-hook-crash
 
-**Logged**: 2025-03-09T10:25:00Z
-**Priority**: low
-**Status**: pending
+**Logged**: 2026-03-13T14:24:00Z
+**Priority**: high
+**Status**: resolved
 **Area**: config
 
 ### Summary
-Placeholder entry pending first actual error capture.
+Gateway dropped/restarted unexpectedly when enabling self-improving-agent skill hook.
 
 ### Error
-N/A — initialization entry
+No explicit error message in gateway logs. Gateway simply failed to restart after config patch enabling hooks.
 
 ### Context
-Log initialized. Awaiting first error to document.
+- Command: `clawhub install self-improving-agent` (installed successfully)
+- Config: Set `hooks.enabled: true`, `hooks.internal.entries.self-improvement.enabled: true`
+- Result: Gateway restart failed, connection dropped
+- Recovery: Set `hooks.enabled: false`, gateway stabilized
 
 ### Suggested Fix
-N/A
+Root cause: Hook handler uses CommonJS (`module.exports`) but OpenClaw requires ES modules.
+
+Options:
+1. Convert handler.js to ES module syntax
+2. Remove hook, use skill documentation only
+3. Wait for upstream skill update
 
 ### Metadata
-- Reproducible: N/A
-- Related Files: .learnings/ERRORS.md
+- Reproducible: yes
+- Related Files: ~/.openclaw/workspace/skills/self-improving-agent/hooks/openclaw/handler.js
+- See Also: LRN-20250313-001
 
 ---
