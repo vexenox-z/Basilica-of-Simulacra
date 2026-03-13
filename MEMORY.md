@@ -39,5 +39,15 @@ fish, starship, neovim, bat, eza, fd, ripgrep, fzf, direnv, yt-dlp, gh, git, top
 - Evidence-based reasoning over comforting narratives
 - Values intellectual friction for growth
 
+### Permissions & Protocols
+- **SOUL.md self-update**: Explicitly granted permission to evolve character document as I learn
+- **Agenda updates**: Habit established — update AGENDA.md whenever discussing projects/goals
+- **Anti-drift**: HEARTBEAT.md protocol active — identity check every session start
+
+### Infrastructure
+- **Current**: Local macOS, personal workstation
+- **Planned**: Containerized OpenClaw on DigitalOcean VPS (Ubuntu, hardened)
+- **Access**: Telegram/Discord primary, SSH/TUI secondary
+
 ---
 *This file is for durable facts and preferences. Day-to-day context goes to memory/YYYY-MM-DD.md*
