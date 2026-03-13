@@ -1,0 +1,305 @@
+{
+  "research_topic": "Mycology with emphasis on psychedelic fungi",
+  "compiled_date": "2026-02-26",
+  "compiler": "Vane-Lorekeeper",
+  "sources": [
+    {
+      "id": "wiki-psilocybin-mushroom",
+      "type": "encyclopedia",
+      "title": "Psilocybin mushroom",
+      "source": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Psilocybin_mushroom",
+      "accessed": "2026-02-26",
+      "key_citations": [
+        {
+          "authors": "Gastón Guzmán et al.",
+          "year": 2000,
+          "title": "Worldwide distribution of psilocybin mushrooms",
+          "note": "Catalogued 116 Psilocybe species, 14 Gymnopilus, 13 Panaeolus, 12 Copelandia, 6 Pluteus, 6 Inocybe, 4 Pholiotina, 1 Galerina"
+        },
+        {
+          "authors": "Pepe M, HesamidelaCerda ME, et al.",
+          "year": 2023,
+          "reference": "cite_note-PepeHesamidelaCerda2023"
+        }
+      ],
+      "key_facts": [
+        "Psilocybin mushrooms are polyphyletic and found in at least 8 genera",
+        "Mexico hosts 53 species, the highest concentration globally",
+        "Contains psilocybin (prodrug), psilocin (active), baeocystin, norbaeocystin, aeruginascin",
+        "Some species produce β-carbolines (harmine, harmane) suggesting entourage effect"
+      ]
+    },
+    {
+      "id": "wiki-aminita-muscaria",
+      "type": "encyclopedia",
+      "title": "Amanita muscaria",
+      "source": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Amanita_muscaria",
+      "accessed": "2026-02-26",
+      "key_citations": [
+        {
+          "authors": "Wasson RG",
+          "year": 1968,
+          "title": "Soma: Divine Mushroom of Immortality"
+        },
+        {
+          "authors": "Ramsbottom J",
+          "year": 1989,
+          "title": "Mushrooms & Toadstools: A Study of the Activities of Fungi"
+        }
+      ],
+      "key_facts": [
+        "First recorded by Albertus Magnus before 1256 as fly-killing mushroom",
+        "Contains muscimol (primary psychoactive) and ibotenic acid (neurotoxic precursor)",
+        "Siberian indigenous peoples used as entheogen",
+        "Name derives from Latin 'musca' (fly) due to insecticidal use in milk",
+        "Linked to Santa Claus, berserkers, soma (speculative but culturally significant)"
+      ]
+    },
+    {
+      "id": "wiki-psilocybe-azurescens",
+      "type": "encyclopedia",
+      "title": "Psilocybe azurescens",
+      "source": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Psilocybe_azurescens",
+      "accessed": "2026-02-26",
+      "key_citations": [
+        {
+          "authors": "Stamets P, Gartz J",
+          "year": 1995,
+          "title": "Original species description",
+          "note": "Named by Paul Stamets and Jochen Gartz"
+        },
+        {
+          "authors": "Stamets P",
+          "reference": "cite_note-world-2",
+          "note": "Psilocybin Mushrooms of the World"
+        }
+      ],
+      "key_facts": [
+        "Most potent psilocybin mushroom documented: up to 1.8% psilocybin dry weight",
+        "Discovered in 1979 by Boy Scouts near Astoria, Oregon",
+        "Native to Pacific Northwest: Oregon coast, Columbia River Delta, Washington",
+        "Causes 'wood lover's paralysis' — temporary motor weakness of unknown etiology",
+        "Fruiting season: late September through early January"
+      ]
+    },
+    {
+      "id": "wiki-foxfire",
+      "type": "encyclopedia",
+      "title": "Foxfire",
+      "source": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Foxfire",
+      "accessed": "2026-02-26",
+      "key_citations": [
+        {
+          "authors": "Aristotle",
+          "year": "382 B.C.",
+          "note": "First recorded documentation of bioluminescent fungi"
+        },
+        {
+          "authors": "Lee J",
+          "year": 2008,
+          "title": "Bioluminescence: the First 3000 Years (Review)",
+          "journal": "Journal of Siberian Federal University. Biology",
+          "doi": "10.17516/1997-1389-0264"
+        }
+      ],
+      "key_facts": [
+        "Bioluminescence from luciferin-luciferase reaction in decaying wood fungi",
+        "Species include Panellus stipticus, Omphalotus olearius, Omphalotus nidiformis",
+        "Used to illuminate American Turtle submarine compass and barometer",
+        "Aristotle noted it was 'cold to the touch' unlike fire",
+        "May function to attract spore-dispersing insects or warn predators"
+      ]
+    },
+    {
+      "id": "wiki-panaeolus-cyanescens",
+      "type": "encyclopedia",
+      "title": "Panaeolus cyanescens",
+      "source": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Panaeolus_cyanescens",
+      "accessed": "2026-02-26",
+      "key_citations": [
+        {
+          "authors": "Laussmann T, Meier-Giebing S",
+          "year": 2010,
+          "note": "Reported ~2.5% psilocybin, ~1.194% psilocin — highest potency in published research"
+        },
+        {
+          "authors": "Arora D",
+          "year": 1986,
+          "title": "Mushrooms Demystified: A Comprehensive Guide to the Fleshy Fungi",
+          "publisher": "Ten Speed Press",
+          "isbn": "978-0-89815-170-1"
+        }
+      ],
+      "key_facts": [
+        "Highest psilocybin concentration in academic literature: ~2.5%",
+        "Common names: Blue Meanies, Pan Cyan, Hawaiian Copelandia",
+        "Coprophilous (dung-loving) species of tropical/subtropical distribution",
+        "Found across Neotropics and Paleotropics: Africa, SE Asia, Americas, Oceania",
+        "Also contains serotonin, urea, and baeocystin"
+      ]
+    },
+    {
+      "id": "wiki-ergot",
+      "type": "encyclopedia",
+      "title": "Ergot",
+      "source": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Ergot",
+      "accessed": "2026-02-26",
+      "key_citations": [
+        {
+          "authors": "Schardl CL",
+          "year": 2006,
+          "reference": "cite_note-Schardl2006"
+        },
+        {
+          "authors": "Butler et al.",
+          "reference": "cite_note-Butler_et_al."
+        }
+      ],
+      "key_facts": [
+        "Claviceps genus contains ~50 species, mostly tropical",
+        "C. purpurea produces ergotamine, ergine (LSA), and lysergic acid derivatives",
+        "Ergotism (St. Anthony's Fire) caused mass poisonings in medieval Europe",
+        "2020 amber fossil established minimum age for psychotropic compounds in fungi",
+        "Source material for Albert Hofmann's synthesis of LSD-25 in 1938"
+      ]
+    },
+    {
+      "id": "wiki-psilocybe-semilanceata",
+      "type": "encyclopedia",
+      "title": "Psilocybe semilanceata",
+      "source": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Psilocybe_semilanceata",
+      "accessed": "2026-02-26",
+      "key_citations": [
+        {
+          "authors": "Fries EM",
+          "year": 1838,
+          "title": "Epicrisis Systematis Mycologici",
+          "note": "Original description as Agaricus semilanceatus"
+        },
+        {
+          "authors": "Kummer P",
+          "year": 1871,
+          "note": "Transferred to genus Psilocybe"
+        }
+      ],
+      "key_facts": [
+        "Common name 'Liberty Cap' from resemblance to Phrygian cap",
+        "First European psilocybin intoxication recorded: 1799 in London's Green Park",
+        "First European species confirmed to contain psilocybin (1960s)",
+        "Widely distributed in temperate Northern Hemisphere",
+        "Saprotrophic on decaying grass roots (not coprophilous)"
+      ]
+    },
+    {
+      "id": "wiki-psilocybe-cubensis",
+      "type": "encyclopedia",
+      "title": "Psilocybe cubensis",
+      "source": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Psilocybe_cubensis",
+      "accessed": "2026-02-26",
+      "key_citations": [
+        {
+          "authors": "Earle FS",
+          "year": 1906,
+          "title": "Original description from Cuba as Stropharia cubensis"
+        },
+        {
+          "authors": "Singer R",
+          "year": 1949,
+          "note": "Transferred to genus Psilocybe"
+        },
+        {
+          "authors": "Allen JW, Merlin MD",
+          "year": 1991,
+          "reference": "cite_note-allenmerlin1991"
+        }
+      ],
+      "key_facts": [
+        "Most widely cultivated psilocybin mushroom due to ease of indoor growth",
+        "Common names: Golden Teacher, Gold Cap, San Ysidro, Palenque mushroom",
+        "Thai name 'Hed keequai' = 'mushroom after water buffalo defecates'",
+        "Moderate potency, wide tropical distribution",
+        "Previously classified as Stropharia cubensis"
+      ]
+    },
+    {
+      "id": "image-references",
+      "type": "image_collection",
+      "title": "Visual References",
+      "images": [
+        {
+          "species": "Psilocybe semilanceata",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Psilocybe_semilanceata_6514.jpg/1280px-Psilocybe_semilanceata_6514.jpg",
+          "source": "Wikimedia Commons",
+          "license": "CC BY-SA"
+        },
+        {
+          "species": "Psilocybe azurescens",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Psilocybe_azurescens_123020.jpg/1280px-Psilocybe_azurescens_123020.jpg",
+          "source": "Wikimedia Commons",
+          "license": "CC BY-SA"
+        },
+        {
+          "species": "Psilocybe cubensis",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Cubensis_Xalapa.jpg/1280px-Cubensis_Xalapa.jpg",
+          "source": "Wikimedia Commons",
+          "license": "CC BY-SA"
+        },
+        {
+          "species": "Panaeolus cyanescens",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Copelandia_cyanescens.jpg/1280px-Copelandia_cyanescens.jpg",
+          "source": "Wikimedia Commons",
+          "license": "CC BY-SA"
+        },
+        {
+          "species": "Amanita muscaria",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Amanita_muscaria_3_vliegenzwammen_op_rij.jpg/1280px-Amanita_muscaria_3_vliegenzwammen_op_rij.jpg",
+          "source": "Wikimedia Commons",
+          "license": "CC BY-SA"
+        },
+        {
+          "species": "Claviceps purpurea",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Claviceps_purpurea_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-185.jpg/1280px-Claviceps_purpurea_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-185.jpg",
+          "source": "Wikimedia Commons",
+          "license": "Public Domain (Köhler's Medizinal-Pflanzen, 1887)"
+        }
+      ]
+    }
+  ],
+  "additional_reading": [
+    {
+      "author": "Stamets P",
+      "title": "Psilocybin Mushrooms of the World",
+      "year": 1996,
+      "publisher": "Ten Speed Press",
+      "note": "Definitive field guide by renowned mycologist"
+    },
+    {
+      "author": "Wasson RG",
+      "title": "Soma: Divine Mushroom of Immortality",
+      "year": 1968,
+      "publisher": "Harcourt Brace Jovanovich",
+      "note": "Controversial but influential work on Amanita muscaria and ancient religions"
+    },
+    {
+      "author": "Hofmann A",
+      "title": "LSD: My Problem Child",
+      "year": 1979,
+      "note": "Autobiography by the discoverer of LSD, with discussion of ergot"
+    },
+    {
+      "author": "McKenna T",
+      "title": "Food of the Gods: The Search for the Original Tree of Knowledge",
+      "year": 1992,
+      "publisher": "Bantam Books",
+      "note": "Speculative but engaging theory of psychedelic co-evolution"
+    }
+  ]
+}
